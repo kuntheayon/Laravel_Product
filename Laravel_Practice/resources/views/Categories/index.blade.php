@@ -18,7 +18,7 @@
                 <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-gray-600">Name</th>
                 <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-gray-600">Description</th>
                 <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-gray-600 w-32">Is Active</th>
-                <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-gray-600 w-32">Action</th>
+          
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-100 text-sm text-gray-700">

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,15 +11,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('Products.index', [
-            'products' => Product::with('category')->latest()->get(),
-        ]);
-    }
-
-    public function create()
-    {
-        return view('Products.create', [
-            'categories' => Category::latest()->get(),
+        return response()->json([
+            'success' => true,
+            'data' => Product::with('category')->latest()->get(),
         ]);
     }
 
@@ -38,25 +32,20 @@ class ProductController extends Controller
             $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
-        Product::create($validated);
+        $product = Product::create($validated);
 
-        return redirect()
-            ->route('products.index')
-            ->with('success', 'Product created successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Product created successfully.',
+            'data' => $product->load('category'),
+        ], 201);
     }
 
     public function show(Product $product)
     {
-        return view('Products.show', [
-            'product' => $product->load('category'),
-        ]);
-    }
-
-    public function edit(Product $product)
-    {
-        return view('Products.edit', [
-            'product' => $product,
-            'categories' => Category::latest()->get(),
+        return response()->json([
+            'success' => true,
+            'data' => $product->load('category'),
         ]);
     }
 
@@ -81,9 +70,11 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()
-            ->route('products.show', $product)
-            ->with('success', 'Product updated successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Product updated successfully.',
+            'data' => $product->load('category'),
+        ]);
     }
 
     public function destroy(Product $product)
@@ -94,8 +85,9 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()
-            ->route('products.index')
-            ->with('success', 'Product deleted successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Product deleted successfully.',
+        ]);
     }
 }

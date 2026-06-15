@@ -13,9 +13,9 @@ Route::apiResource('categories', CategoryController::class)->names([
 ]);
 
 Route::apiResource('products', ProductController::class)->names([
-    'index' => 'api.categories.index',
-    'store' => 'api.categories.store',
-    'show' => 'api.categories.show',
-    'update' => 'api.categories.update',
-    'destroy' => 'api.categories.destroy',
+    'index' => 'api.products.index',
+    'store' => 'api.products.store',
+    'show' => 'api.products.show',
+    'update' => 'api.products.update',
+    'destroy' => 'api.products.destroy',
 ]);
